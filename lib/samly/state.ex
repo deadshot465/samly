@@ -25,7 +25,8 @@ defmodule Samly.State do
     store_provider.delete_assertion(conn, assertion_key, opts)
   end
 
-  def gen_id() do
-    24 |> :crypto.strong_rand_bytes() |> Base.url_encode64()
+  def create_relay_state(conn) do
+    %{provider: store_provider, opts: opts} = Application.get_env(:samly, @state_store)
+    store_provider.create_relay_state(conn, opts)
   end
 end

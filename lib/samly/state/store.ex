@@ -30,7 +30,7 @@ defmodule Samly.State.Store do
   Initializes the store.
 
   The options returned from this function will be given
-  to `get_assertion/3`, `put_assertion/4` and `delete_assertion/3`.
+  to `get_assertion/3`, `put_assertion/4`, `delete_assertion/3` and `create_relay_state/2`.
   """
   @callback init(opts()) :: opts() | no_return()
 
@@ -57,4 +57,9 @@ defmodule Samly.State.Store do
   after calling this.
   """
   @callback delete_assertion(Conn.t(), assertion_key(), opts()) :: Conn.t() | no_return()
+
+  @doc """
+  Creates SAML relay state.
+  """
+  @callback create_relay_state(Conn.t(), opts()) :: binary()
 end

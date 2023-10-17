@@ -18,7 +18,7 @@ defmodule Samly.State.Session do
   """
 
   alias Plug.Conn
-  alias Samly.Assertion
+  alias Samly.{Assertion, Helper}
 
   @behaviour Samly.State.Store
 
@@ -49,5 +49,10 @@ defmodule Samly.State.Session do
   def delete_assertion(conn, _assertion_key, opts) do
     %{key: key} = opts
     Conn.delete_session(conn, key)
+  end
+
+  @impl Samly.State.Store
+  def create_relay_state(_conn, _opts) do
+    Helper.gen_id()
   end
 end

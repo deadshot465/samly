@@ -108,6 +108,10 @@ defmodule Samly.Helper do
     end
   end
 
+  def gen_id() do
+    24 |> :crypto.strong_rand_bytes() |> Base.url_encode64()
+  end
+
   defp decode_saml_payload(saml_encoding, saml_payload) do
     try do
       xml = :esaml_binding.decode_response(saml_encoding, saml_payload)

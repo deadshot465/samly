@@ -22,7 +22,7 @@ defmodule Samly.State.ETS do
   redis, memcached, database etc.
   """
 
-  alias Samly.Assertion
+  alias Samly.{Assertion, Helper}
 
   @behaviour Samly.State.Store
 
@@ -61,5 +61,10 @@ defmodule Samly.State.ETS do
   def delete_assertion(conn, assertion_key, assertions_table) do
     :ets.delete(assertions_table, assertion_key)
     conn
+  end
+
+  @impl Samly.State.Store
+  def create_relay_state(_conn, _assertions_table) do
+    Helper.gen_id()
   end
 end
